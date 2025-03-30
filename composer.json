@@ -1,7 +1,7 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
-    "type": "project",
+    "name": "rakibur-rimon/laravel-crud-generator",
+    "type": "library",
     "description": "The skeleton application for the Laravel framework.",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
@@ -23,7 +23,8 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "RakiburRimon\\CrudGenerator\\": "src/"
         }
     },
     "autoload-dev": {
@@ -54,7 +55,10 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [],
+            "commands": [
+                "RakiburRimon\\CrudGenerator\\Console\\Commands\\MakeCrudCommand"
+            ]
         }
     },
     "config": {
