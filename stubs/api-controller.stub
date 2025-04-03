@@ -2,7 +2,7 @@
 
 namespace {{apiNamespace}};
 
-use {{model}};
+use {{fullModelClass}} as {{model}};
 use {{requestNamespace}};
 use Illuminate\Http\JsonResponse;
 
@@ -10,7 +10,8 @@ class {{class}} extends Controller
 {
     public function index()
     {
-        return {{model}}::all();
+        ${{modelVariable}} = {{model}}::all();
+        return response()->json(${{modelVariable}}, 200);
     }
 
     public function store({{requestClass}} $request)
