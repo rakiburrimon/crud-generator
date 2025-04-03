@@ -32,6 +32,7 @@ class ControllerGenerator
 
         $replacements = [
             '{{namespace}}' => 'App\\Http\\Controllers',
+            '{{apiNamespace}}' => 'App\\Http\\Controllers\\Api',
             '{{class}}' => $this->modelName . 'Controller',
             '{{model}}' => $this->modelName,
             '{{fullModelClass}}' => $fullModelClass,

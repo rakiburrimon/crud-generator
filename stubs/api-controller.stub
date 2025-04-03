@@ -1,6 +1,6 @@
 <?php
 
-namespace {{namespace}};
+namespace {{apiNamespace}};
 
 use {{model}};
 use {{requestNamespace}};
