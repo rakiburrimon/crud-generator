@@ -23,6 +23,7 @@ class ControllerGenerator
     public function generate()
     {
         $stub = File::get($this->getStubPath('controller'));
+        $apiStub = File::get($this->getStubPath('api-controller'));
 
         $modelVariable = Str::camel($this->modelName);
         $modelPlural = Str::camel(Str::plural($this->modelName));
@@ -46,10 +47,20 @@ class ControllerGenerator
             $stub
         );
 
+        $apiContent = str_replace(
+            array_keys($replacements),
+            array_values($replacements),
+            $apiStub
+        );
+
         $path = app_path('Http/Controllers/' . $this->modelName . 'Controller.php');
+        $apiPath = app_path('Http/Controllers/Api/' . $this->modelName . 'Controller.php');
 
         File::ensureDirectoryExists(dirname($path));
         File::put($path, $content);
+
+        File::ensureDirectoryExists(dirname($apiPath));
+        File::put($apiPath, $apiContent);
     }
 
     protected function getStubPath($type)
