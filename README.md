@@ -113,6 +113,7 @@ Available configuration options:
 return [
     'model_namespace' => 'App\Models',
     'controller_namespace' => 'App\Http\Controllers',
+    'api_controller_namespace' => 'App\Http\Controllers\Api',
     'request_namespace' => 'App\Http\Requests',
     'views_path' => 'resources/views',
     'api_prefix' => 'api',
@@ -130,6 +131,8 @@ app/
 │   └── Post.php
 ├── Http/
 │   ├── Controllers/
+|   |   ├── Api/
+│   │   |    └── PostController.php
 │   │   └── PostController.php
 │   └── Requests/
 │       └── PostRequest.php
