@@ -2,6 +2,7 @@
 
 namespace {{apiNamespace}};
 
+use {{namespace}};
 use {{fullModelClass}} as {{model}};
 use {{requestNamespace}};
 use Illuminate\Http\JsonResponse;
