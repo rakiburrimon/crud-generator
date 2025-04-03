@@ -9,31 +9,36 @@ class RouteGenerator
 {
     protected $modelName;
     protected $controllerNamespace;
+    protected $apiControllerNamespace;
     protected $routeName;
 
-    public function __construct($modelName, $controllerNamespace = 'App\Http\Controllers')
+    public function __construct($modelName, $controllerNamespace = 'App\Http\Controllers', $apiControllerNamespace = 'App\Http\Controllers\Api')
     {
         $this->modelName = $modelName;
         $this->controllerNamespace = $controllerNamespace;
+        $this->apiControllerNamespace = $apiControllerNamespace;
         $this->routeName = Str::kebab(Str::plural($this->modelName));
     }
 
     public function generate()
     {
         $controller = $this->modelName . 'Controller';
-        $fullControllerPath = $this->controllerNamespace . '\\' . $controller;
 
-        // API Routes
+        // Generate API Route with API namespace
+        $apiControllerPath = $this->apiControllerNamespace . '\\' . $controller;
         $apiRoute = <<<ROUTE
-        Route::apiResource('{$this->routeName}', \\{$fullControllerPath}::class)
-            ->names('api.{$this->routeName}')
-            ->parameters(['{$this->routeName}' => '{$this->modelNameLowerCase()}']);
+        Route::prefix('api')->group(function () {
+            Route::apiResource('{$this->routeName}', \\{$apiControllerPath}::class)
+                ->names('api.{$this->routeName}')
+                ->parameters(['{$this->routeName}' => '{$this->modelNameLowerCase()}']);
+        });
         ROUTE;
         $this->appendToRoutesFile($apiRoute, 'api');
 
-        // Web Routes
+        // Generate Web Route with standard namespace
+        $webControllerPath = $this->controllerNamespace . '\\' . $controller;
         $webRoute = <<<ROUTE
-        Route::resource('{$this->routeName}', \\{$fullControllerPath}::class)
+        Route::resource('{$this->routeName}', \\{$webControllerPath}::class)
             ->parameters(['{$this->routeName}' => '{$this->modelNameLowerCase()}']);
         ROUTE;
         $this->appendToRoutesFile($webRoute, 'web');

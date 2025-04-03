@@ -2,7 +2,7 @@
 
 namespace {{namespace}};
 
-use {{model}};
+use {{fullModelClass}};
 use {{requestNamespace}};
 use Illuminate\Http\Request;
 
@@ -10,7 +10,7 @@ class {{class}} extends Controller
 {
     public function index()
     {
-        ${{modelPlural}} = {{model}}::all();
+        ${{modelPlural}} = {{fullModelClass}}::all();
         return view('{{modelPlural}}.index', compact('{{modelPlural}}'));
     }
 
@@ -21,27 +21,27 @@ class {{class}} extends Controller
 
     public function store({{requestClass}} $request)
     {
-        ${{modelVariable}} = {{model}}::create($request->validated());
+        ${{modelVariable}} = {{fullModelClass}}::create($request->validated());
         return redirect()->route('{{modelPlural}}.show', ${{modelVariable}});
     }
 
-    public function show({{model}} ${{modelVariable}})
+    public function show({{fullModelClass}} ${{modelVariable}})
     {
         return view('{{modelPlural}}.show', compact('{{modelVariable}}'));
     }
 
-    public function edit({{model}} ${{modelVariable}})
+    public function edit({{fullModelClass}} ${{modelVariable}})
     {
         return view('{{modelPlural}}.edit', compact('{{modelVariable}}'));
     }
 
-    public function update({{requestClass}} $request, {{model}} ${{modelVariable}})
+    public function update({{requestClass}} $request, {{fullModelClass}} ${{modelVariable}})
     {
         ${{modelVariable}}->update($request->validated());
         return redirect()->route('{{modelPlural}}.show', ${{modelVariable}});
     }
 
-    public function destroy({{model}} ${{modelVariable}})
+    public function destroy({{fullModelClass}} ${{modelVariable}})
     {
         ${{modelVariable}}->delete();
         return redirect()->route('{{modelPlural}}.index');

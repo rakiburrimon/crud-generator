@@ -1,0 +1,38 @@
+<?php
+
+namespace {{namespace}};
+
+use {{model}};
+use {{requestNamespace}};
+use Illuminate\Http\JsonResponse;
+
+class {{class}} extends Controller
+{
+    public function index()
+    {
+        return {{model}}::all();
+    }
+
+    public function store({{requestClass}} $request)
+    {
+        ${{modelVariable}} = {{model}}::create($request->validated());
+        return response()->json(${{modelVariable}}, 201);
+    }
+
+    public function show({{model}} ${{modelVariable}})
+    {
+        return ${{modelVariable}};
+    }
+
+    public function update({{requestClass}} $request, {{model}} ${{modelVariable}})
+    {
+        ${{modelVariable}}->update($request->validated());
+        return ${{modelVariable}};
+    }
+
+    public function destroy({{model}} ${{modelVariable}})
+    {
+        ${{modelVariable}}->delete();
+        return response()->json(null, 204);
+    }
+}
